@@ -1,0 +1,53 @@
+{% extends 'base_template.html' %} {% load static %}
+
+{% block title %}Login{% endblock %}
+
+{%block content %} <div class="container-fluid p-5 m-0" style="
+background-image: url('{% static "vuln2.webp" %}'); background-position: center;
+width: 100%; height: 100%; background-repeat: no-repeat; background-size: cover;
+">
+    <div class="container p-5" 
+        style="max-width: 400px; border-radius: 10px; background-color:rgba(255, 255, 255, 0.8);">
+        <h1>Login</h1>
+        <p>Welcome to a vulnerable site! Let's login to this secure service..</p>
+
+        <!-- Login form -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3" style="width: 200px">
+            <label for="username" class="form-label fw-bold">Username</label>
+            <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                required
+            />
+            </div>
+            <div class="mb-3" style="width: 200px">
+            <label for="password" class="form-label fw-bold">Password</label>
+            <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+            />
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Login</button>
+
+            <!-- Alert from here: https://stackoverflow.com/questions/47923952/python-django-how-to-display-error-messages-on-invalid-login -->
+            {% if messages %}
+                <ul class="alert alert-error">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="alert {{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </form>
+    </div>
+    <div class="container-fluid bg-light px-3 py-2 my-3" style="border-radius: 10px; max-width: 400px;">
+       <p> Don't have an account? <a href="{% url 'register' %}">Register here</a></p> 
+    </div>
+</div>
+{% endblock %}

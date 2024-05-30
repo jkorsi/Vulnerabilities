@@ -1,0 +1,23 @@
+table.vuln {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #ffffff;
+    max-width: 800px;
+
+}
+
+td.vuln,
+th.vuln {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th.vuln {
+    font-size: 18px;
+}
+
+tr.vuln:nth-child(even) {
+    background-color: #dddddd;
+}

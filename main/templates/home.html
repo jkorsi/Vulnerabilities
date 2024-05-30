@@ -1,0 +1,82 @@
+{% extends 'base_template.html' %} {% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block navbuttons %}
+<div class="row flex text-light ml-auto align-items-center">
+    <span class="col-auto small">Logged in as: {{username}}</span>
+    <div class="col-auto">
+        <form action='logout/' method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout" class="btn btn-primary btn-sm"/>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{%block content %} 
+
+<link rel="stylesheet" href="{% static 'vuln_table.css' %}">
+
+<div class="container-fluid p-5 m-0 " style="
+background: url('{% static "vuln2.webp" %}') no-repeat center center fixed;
+        webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+">  
+    <div class="p-5 mx-auto rounded-3" style="max-width: 600px; background-color:rgba(255, 255, 255, 0.8);">
+    <h1>Add note</h1>
+     {% autoescape off %}
+        <form action="add_note" method="POST">
+            {% csrf_token %}
+            <div class="mb-3" style="max-width: 300px">
+                <label for="title" class="form-label fw-bold">Title</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    required
+                />
+            </div>
+            <div class="mb-3" style="max-width: 400px">
+                <label for="content" class="form-label fw-bold">Content</label>
+                <textarea
+                    type="text"
+                    class="form-control"
+                    id="content"
+                    name="content"
+                    required
+                > </textarea>
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Add note</button>
+        </form>
+        {% endautoescape %}
+    </div>
+
+    <div class="p-5 mt-5 mx-auto rounded-3" style="max-width: 1000px; background-color:rgba(255, 255, 255, 0.8);"> 
+        {%autoescape off%}
+        <h1> Notes: </h1>
+
+        <table class="vuln rounded-3">
+            <tr >
+                <th class="vuln">Title</th>
+                <th class="vuln">Content</th>
+                <th class="vuln">Created</th>
+            </tr>
+            {% for note in notes %} 
+            <tr class="vuln">
+                <td class="vuln col-2">{{note.title}}</th>
+                <td class="vuln col-2">{{note.content}}</th>
+                <td class="vuln col-1">{{note.created_time | date:'d-M-Y H:i'}}</th>    
+            </tr>
+            {% endfor %}
+        </table>
+        {% endautoescape %}
+    </div>
+</div>
+
+{% endblock %}

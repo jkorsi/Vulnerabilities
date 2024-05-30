@@ -1,0 +1,73 @@
+{% extends 'base_template.html' %}
+<!-- Space -->
+{% load static %}
+<!-- Space -->
+{% block title %}Register{% endblock %}
+<!-- Space -->
+{% block content %}
+
+<div class="container-fluid p-5 m-0">
+  <div
+    class="container p-5"
+    style="
+      max-width: 400px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+    "
+  >
+    <h1>Register</h1>
+    <p>Welcome to a vulnerable site! Let's register to this secure service..</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3" style="width: 200px">
+        <label for="username" class="form-label fw-bold">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          required
+        />
+      </div>
+      <div class="mb-3" style="width: 200px">
+        <label for="password" class="form-label fw-bold">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+        />
+      </div>
+      <div class="mb-3" style="width: 200px">
+        <label for="password2" class="form-label fw-bold"
+          >Confirm Password</label
+        >
+        <input
+          type="password"
+          class="form-control"
+          id="password2"
+          name="password2"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+
+      {% for message in messages %}
+
+      <div class="alert alert-danger">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+        {{ message }}
+      </div>
+      {% endfor %}
+    </form>
+  </div>
+  <div
+    class="container-fluid bg-light p-1 my-3"
+    style="border-radius: 10px; max-width: 400px"
+  >
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</div>
+{% endblock %}
